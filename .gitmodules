@@ -1,3 +1,6 @@
 [submodule "paraview"]
 	path = paraview
 	url = https://gitlab.kitware.com/paraview/paraview.git
+[submodule "pcl"]
+	path = pcl
+	url = https://github.com/PointCloudLibrary/pcl
