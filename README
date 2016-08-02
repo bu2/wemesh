@@ -1,0 +1,10 @@
+WeMesh
+
+This repo is the master repo for the WeMesh project including all its dependencies as Git submodules:
+- Paraview/VTK
+- PCL (Point Cloud Library)
+- LLVM/Clang
+
+The goal is to manage version of the code and all its dependencies with one Git repository and to be able to rebuild and update everything easily.
+
+My main target platforms are Ubuntu 14.04/16.04 and OS X El Capitan.
