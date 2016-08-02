@@ -13,3 +13,11 @@ cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$ROOT -DMACOSX_AP
 make -j$JOBS 2>&1 | tee make.log
 make install 2>&1 | tee make_install.log
 cd ../..
+
+cd pcl
+mkdir -p build
+cd build
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$ROOT -DOPENNI2_INCLUDE_DIRS=$ROOT/OpenNI-MacOSX-x64-2.2/Include/ -DOPENNI2_LIBRARY=$ROOT/OpenNI-MacOSX-x64-2.2/Redist/libOpenNI2.dylib .. 2>&1 | tee cmake.log
+make -j$JOBS 2>&1 | tee make.log
+make install 2>&1 | tee make_install.log
+cd ../..
