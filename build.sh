@@ -21,3 +21,8 @@ cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$ROOT -DOPENNI2_I
 make -j$JOBS 2>&1 | tee make.log
 make install 2>&1 | tee make_install.log
 cd ../..
+
+source env/bin/activate
+cd python/pcl
+python setup.py -- build_ext --inplace 2>&1 | tee build_ext.log
+cd ../..
