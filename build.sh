@@ -26,3 +26,4 @@ source env/bin/activate
 cd python/pcl
 ipython setup.py -- build_ext --inplace 2>&1 | tee build_ext.log
 cd ../..
+deactivate

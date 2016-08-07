@@ -8,6 +8,9 @@ cdef class PointCloud:
   def __dealloc__(self):
     pass
 
+  property points:
+    def __get__(self): return self._thisptr.get().points
+
   property width:
     def __get__(self): return self._thisptr.get().width
 
@@ -25,9 +28,6 @@ cdef class PointCloud:
 
   def __repr__(self):
       return "<PointCloud of %d points>" % self.size
-
-  def isOrganized(self):
-    return self._thisptr.get().isOrganized()
 
   def savePCDFile(self, cpp.string filename):
     return cpp.savePCDFile(filename, self._thisptr.get()[0])

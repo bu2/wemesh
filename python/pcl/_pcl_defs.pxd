@@ -1,7 +1,9 @@
 from libc.stddef cimport size_t
 from libcpp cimport bool
 from libcpp.string cimport string
+from libcpp.vector cimport vector
 
+cimport eigen
 from shared_ptr cimport shared_ptr
 
 cdef extern from "pcl/point_types.h" namespace "pcl":
@@ -13,6 +15,7 @@ cdef extern from "pcl/point_types.h" namespace "pcl":
 cdef extern from "pcl/point_cloud.h" namespace "pcl":
   cdef cppclass PointCloud[PointT]:
     PointCloud() except +
+    vector[PointT, eigen.aligned_allocator[PointT]] points
     unsigned int width
     unsigned int height
     bool is_dense
