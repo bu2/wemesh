@@ -12,6 +12,7 @@ pcl/build/
 
 python/pcl/build/
 python/pcl/_pcl.cpp
+python/pcl/_pcl.cpp.old
 python/pcl/_pcl.so
 python/pcl/io/_io.cpp
 python/pcl/io/_io.so
