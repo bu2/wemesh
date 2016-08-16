@@ -15,6 +15,7 @@ cdef extern from "pcl/point_types.h" namespace "pcl":
 cdef extern from "pcl/point_cloud.h" namespace "pcl":
   cdef cppclass PointCloud[PointT]:
     PointCloud() except +
+    PointCloud(int width, int height) except +
     vector[PointT, eigen.aligned_allocator[PointT]] points
     unsigned int width
     unsigned int height

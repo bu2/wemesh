@@ -1,10 +1,16 @@
 cimport _pcl_defs as cpp
+import cython
 from cython cimport Py_buffer
+import numpy as np
+cimport numpy as np
 
 cdef class PointCloud:
 
-  def __cinit__(self):
-    self._thisptr = cpp.shared_ptr[cpp.PointCloud[cpp.PointXYZ]](new cpp.PointCloud[cpp.PointXYZ]())
+  def __cinit__(self, int width=-1, int height=-1):
+    if width < 0:
+      self._thisptr = cpp.shared_ptr[cpp.PointCloud[cpp.PointXYZ]](new cpp.PointCloud[cpp.PointXYZ]())
+    else:
+      self._thisptr = cpp.shared_ptr[cpp.PointCloud[cpp.PointXYZ]](new cpp.PointCloud[cpp.PointXYZ](width, height))
 
   def __dealloc__(self):
     pass
@@ -12,8 +18,8 @@ cdef class PointCloud:
   def __getbuffer__(self, Py_buffer *buffer, int flags):
     cdef Py_ssize_t itemsize = sizeof(self._thisptr.get().points[0].x)
 
-    self.shape[0] = 640
-    self.shape[1] = 480
+    self.shape[0] = self._thisptr.get().width
+    self.shape[1] = self._thisptr.get().height
     self.shape[2] = 3
 
     self.strides[0] = <char *>&(self._thisptr.get().points[1]) - <char *>&(self._thisptr.get().points[0])
@@ -34,6 +40,17 @@ cdef class PointCloud:
 
   def __releasebuffer__(self, Py_buffer *buffer):
     pass
+
+  @staticmethod
+  @cython.boundscheck(False)
+  @cython.wraparound(False)
+  def fromarray(np.ndarray[float, ndim=2] arr, int width, int height):
+    cloud = PointCloud(width, height)
+    cloud_array = np.asarray(cloud)
+    for line in range(0, height):
+      cloud_array[:,line,:] = arr[line*width:(line+1)*width,:]
+    cloud._thisptr.get().is_dense = False
+    return cloud
 
   property points:
     def __get__(self): return self._thisptr.get().points

@@ -1,13 +1,16 @@
 from distutils.core import setup, Extension
 from Cython.Build import cythonize
 
+import numpy
+
 ext_modules = []
 
 _pcl_ext = Extension("_pcl",
                      sources=["_pcl.pyx"],
                      include_dirs=["../../include/pcl-1.8",
                                    "/Users/bu2/.brew/include",
-                                   "/Users/bu2/.brew/include/eigen3"],
+                                   "/Users/bu2/.brew/include/eigen3",
+                                   numpy.get_include()],
                      libraries=["pcl_common", "pcl_io"],
                      library_dirs=["../../lib"],
                      language="c++")

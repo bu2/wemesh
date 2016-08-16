@@ -2,6 +2,6 @@
 
 source env/bin/activate
 cd paraview.app/Contents/MacOS
-DYLD_LIBRARY_PATH="../../../lib:../../../OpenNI-MacOSX-x64-2.2/Redist" PYTHONPATH="../../../python" ./paraview $* 2>&1 | tee run.log
+DYLD_LIBRARY_PATH="../../../lib:../../../OpenNI-MacOSX-x64-2.2/Redist" PYTHONPATH="../../../python:../../../env/lib/python2.7/site-packages" ./paraview $* 2>&1 | tee run.log
 cd ../../../
 deactivate
