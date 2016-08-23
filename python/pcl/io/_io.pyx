@@ -14,11 +14,14 @@ def loadPCDFile(cpp.string filename):
 
 
 
-cdef _pcl.PointCloud _cloud
+cdef _pcl.PointCloud _cloud = _pcl.PointCloud()
+cdef int _count = 0
 
 cdef void __openni2_grabber_callback__(cpp.PointCloudConstPtrRef cloud) nogil:
   global _cloud
-  # _cloud.set_thisptr(&cloud.get()[0])
+  global _count
+  _cloud.set_thisptr(cpp.boost.const_pointer_cast[__PointCloud, __PointCloudConst](cloud))
+  _count += 1
 
 cdef class OpenNI2Grabber:
 
@@ -28,15 +31,24 @@ cdef class OpenNI2Grabber:
   def __dealloc__(self):
     pass
 
-  def start(self):
+  cdef void start_impl(self):
     cdef cpp.boost.arg _1
     cdef cpp.boost.function[cpp.OpenNI2GrabberCallback] callback = cpp.boost.bind[cpp.OpenNI2GrabberCallback](__openni2_grabber_callback__, _1)
     self._thisptr.get().registerCallback(callback)
     self._thisptr.get().start()
 
+  def start(self):
+    self.start_impl()
+
   def stop(self):
     self._thisptr.get().stop()
 
-  def current_cloud(self):
-    global _cloud
-    return _cloud
+  property current_cloud:
+    def __get__(self):
+      global _cloud
+      return _cloud
+
+  property count:
+    def __get__(self):
+      global _count
+      return _count
