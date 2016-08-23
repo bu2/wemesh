@@ -30,6 +30,7 @@ ipython setup.py -- build_ext --inplace 2>&1 | tee build_ext.log
 sed -E -i.old 's/const std::vector<struct pcl::PointXYZ>/const std::vector<struct pcl::PointXYZ, Eigen::aligned_allocator<struct pcl::PointXYZ> >/' _pcl.cpp
 sed -E -i.old 's/boost::arg/boost::arg<1>/' _pcl.cpp
 sed -E -i.old 's/boost::bind<__pyx_t_3pcl_9_pcl_defs_OpenNI2GrabberCallback>/boost::bind/' _pcl.cpp
+sed -E -i.old 's/typedef boost::shared_ptr<pcl::PointCloud<struct pcl::PointXYZ> >  __pyx_t_3pcl_9_pcl_defs_PointCloudConstPtr;/typedef boost::shared_ptr<pcl::PointCloud<struct pcl::PointXYZ> const > const\&  __pyx_t_3pcl_9_pcl_defs_PointCloudConstPtr;/' _pcl.cpp
 ipython setup.py -- build_ext --inplace 2>&1 | tee build_ext.log
 
 cd ../..

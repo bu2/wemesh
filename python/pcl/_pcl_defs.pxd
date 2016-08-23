@@ -28,6 +28,7 @@ cdef extern from "pcl/point_cloud.h" namespace "pcl":
     bool isOrganized()
 
 ctypedef boost.shared_ptr[PointCloud[PointXYZ]] PointCloudPtr
+ctypedef boost.shared_ptr[PointCloud[PointXYZ]] PointCloudConstPtr
 
 
 
@@ -37,7 +38,7 @@ cdef extern from "pcl/io/pcd_io.h" namespace "pcl::io":
 
 
 
-ctypedef void OpenNI2GrabberCallback(PointCloudPtr)
+ctypedef void OpenNI2GrabberCallback(PointCloudConstPtr)
 cdef extern from "pcl/io/openni2_grabber.h" namespace "pcl::io":
   cdef cppclass OpenNI2Grabber:
     OpenNI2Grabber()

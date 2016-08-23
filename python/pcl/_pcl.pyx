@@ -80,8 +80,8 @@ cdef class PointCloud:
 
 
 
-cdef void __openni2_grabber_callback__(cpp.PointCloudPtr cloud):
-  print 'New Cloud'
+cdef void __openni2_grabber_callback__(cpp.PointCloudConstPtr cloud):
+  pass
 
 cdef class OpenNI2Grabber:
 
