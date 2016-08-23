@@ -14,8 +14,11 @@ def loadPCDFile(cpp.string filename):
 
 
 
-cdef void __openni2_grabber_callback__(cpp.PointCloudConstPtr cloud):
-  pass
+cdef _pcl.PointCloud _cloud
+
+cdef void __openni2_grabber_callback__(cpp.PointCloudConstPtrRef cloud) nogil:
+  global _cloud
+  # _cloud.set_thisptr(&cloud.get()[0])
 
 cdef class OpenNI2Grabber:
 
@@ -33,3 +36,7 @@ cdef class OpenNI2Grabber:
 
   def stop(self):
     self._thisptr.get().stop()
+
+  def current_cloud(self):
+    global _cloud
+    return _cloud

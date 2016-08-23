@@ -10,9 +10,9 @@ cdef class PointCloud:
 
   def __cinit__(self, int width=-1, int height=-1):
     if width < 0:
-      self._thisptr = cpp.boost.shared_ptr[cpp.PointCloud[cpp.PointXYZ]](new cpp.PointCloud[cpp.PointXYZ]())
+      self._thisptr = cpp.PointCloudPtr(new cpp.PointCloud[cpp.PointXYZ]())
     else:
-      self._thisptr = cpp.boost.shared_ptr[cpp.PointCloud[cpp.PointXYZ]](new cpp.PointCloud[cpp.PointXYZ](width, height))
+      self._thisptr = cpp.PointCloudPtr(new cpp.PointCloud[cpp.PointXYZ](width, height))
 
   def __dealloc__(self):
     pass
