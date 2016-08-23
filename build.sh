@@ -26,12 +26,13 @@ source env/bin/activate
 cd python/pcl
 ipython setup.py -- build_ext --inplace 2>&1 | tee build_ext.log
 
-# UGLY FIX: Cython seems not to handle custom allocator on std::vector...
+# UGLY FIX: hack code to handle cases that Cython can't...
 sed -E -i.old 's/const std::vector<struct pcl::PointXYZ>/const std::vector<struct pcl::PointXYZ, Eigen::aligned_allocator<struct pcl::PointXYZ> >/' _pcl.cpp
 ipython setup.py -- build_ext --inplace 2>&1 | tee build_ext.log
 sed -E -i.old 's/boost::arg/boost::arg<1>/' io/_io.cpp
 sed -E -i.old 's/boost::bind<__pyx_t_9_pcl_defs_OpenNI2GrabberCallback>/boost::bind/' io/_io.cpp
-sed -E -i.old 's/typedef boost::shared_ptr<pcl::PointCloud<struct pcl::PointXYZ> >  __pyx_t_9_pcl_defs_PointCloudConstPtr;/typedef boost::shared_ptr<pcl::PointCloud<struct pcl::PointXYZ> const > const\& __pyx_t_9_pcl_defs_PointCloudConstPtr;/' io/_io.cpp
+sed -E -i.old 's/typedef boost::shared_ptr<pcl::PointCloud<struct pcl::PointXYZ> >  __pyx_t_9_pcl_defs_PointCloudConstPtr;/typedef boost::shared_ptr<pcl::PointCloud<struct pcl::PointXYZ> const > __pyx_t_9_pcl_defs_PointCloudConstPtr;/' io/_io.cpp
+sed -E -i.old 's/typedef boost::shared_ptr<pcl::PointCloud<struct pcl::PointXYZ> >  __pyx_t_9_pcl_defs_PointCloudConstPtrRef;/typedef boost::shared_ptr<pcl::PointCloud<struct pcl::PointXYZ> const > const \& __pyx_t_9_pcl_defs_PointCloudConstPtrRef;/' io/_io.cpp
 ipython setup.py -- build_ext --inplace 2>&1 | tee build_ext.log
 
 
