@@ -15,6 +15,7 @@ python/pcl/_pcl.cpp
 python/pcl/_pcl.cpp.old
 python/pcl/_pcl.so
 python/pcl/io/_io.cpp
+python/pcl/io/_io.cpp.old
 python/pcl/io/_io.so
 python/pcl/filters/_filters.cpp
 python/pcl/filters/_filters.so

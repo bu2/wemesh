@@ -9,10 +9,3 @@ cdef class PointCloud:
 
   cdef Py_ssize_t shape[3]
   cdef Py_ssize_t strides[3]
-
-
-
-cdef class OpenNI2Grabber:
-  cdef cpp.boost.shared_ptr[cpp.OpenNI2Grabber] _thisptr
-  cdef inline cpp.boost.shared_ptr[cpp.OpenNI2Grabber] thisptr(self) nogil:
-    return self._thisptr

@@ -12,7 +12,7 @@ rm -Rfv python/pcl/build
 rm -fv python/pcl/build_ext.log
 rm -fv python/pcl/_pcl.cpp*
 rm -fv python/pcl/_pcl.so
-rm -fv python/pcl/io/_io.cpp
+rm -fv python/pcl/io/_io.cpp*
 rm -fv python/pcl/io/_io.so
 rm -fv python/pcl/filters/_filters.cpp
 rm -fv python/pcl/filters/_filters.so
