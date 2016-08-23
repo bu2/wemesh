@@ -28,6 +28,8 @@ ipython setup.py -- build_ext --inplace 2>&1 | tee build_ext.log
 
 # UGLY FIX: Cython seems not to handle custom allocator on std::vector...
 sed -E -i.old 's/const std::vector<struct pcl::PointXYZ>/const std::vector<struct pcl::PointXYZ, Eigen::aligned_allocator<struct pcl::PointXYZ> >/' _pcl.cpp
+sed -E -i.old 's/boost::arg/boost::arg<1>/' _pcl.cpp
+sed -E -i.old 's/boost::bind<__pyx_t_3pcl_9_pcl_defs_OpenNI2GrabberCallback>/boost::bind/' _pcl.cpp
 ipython setup.py -- build_ext --inplace 2>&1 | tee build_ext.log
 
 cd ../..

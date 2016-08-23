@@ -5,7 +5,7 @@ cimport _pcl
 cdef class VoxelGrid:
 
   def __cinit__(self):
-    self._thisptr = cpp.shared_ptr[cpp.VoxelGrid[cpp.PointXYZ]](new cpp.VoxelGrid[cpp.PointXYZ]())
+    self._thisptr = cpp.boost.shared_ptr[cpp.VoxelGrid[cpp.PointXYZ]](new cpp.VoxelGrid[cpp.PointXYZ]())
 
   def __dealloc__(self):
     pass
