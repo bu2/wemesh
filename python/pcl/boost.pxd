@@ -1,4 +1,4 @@
-from libcpp cimport bool
+cimport libcpp
 
 
 
@@ -7,7 +7,7 @@ cdef extern from "boost/smart_ptr/shared_ptr.hpp" namespace "boost" nogil:
       shared_ptr()
       shared_ptr(PointT*)
       PointT* get()
-      bool unique()
+      libcpp.bool unique()
       long use_count()
       void swap(shared_ptr[PointT])
       void reset()

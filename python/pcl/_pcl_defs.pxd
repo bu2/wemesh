@@ -35,8 +35,8 @@ ctypedef boost.shared_ptr[PointCloud[PointXYZ]] PointCloudConstPtrRef
 
 
 cdef extern from "pcl/io/pcd_io.h" namespace "pcl::io" nogil:
-  int loadPCDFile[PointT](string filename, PointCloud[PointT] &cloud)
-  int savePCDFile[PointT](string filename, PointCloud[PointT] &cloud)
+  int loadPCDFile[PointT](string filename, PointCloud[PointT] &cloud) except +
+  int savePCDFile[PointT](string filename, PointCloud[PointT] &cloud) except +
 
 
 

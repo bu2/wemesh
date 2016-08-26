@@ -8,7 +8,7 @@ cdef class OpenNI2Grabber:
   cdef inline cpp.boost.shared_ptr[cpp.OpenNI2Grabber] thisptr(self) nogil:
     return self._thisptr
 
-  cdef void start_impl(self)
-
 ctypedef cpp.PointCloud[cpp.PointXYZ] __PointCloud
 ctypedef const __PointCloud __PointCloudConst
+
+ctypedef void t_start_grabber_impl()
