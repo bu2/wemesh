@@ -34,3 +34,17 @@ cdef extern from "boost/bind.hpp" namespace "boost" nogil:
   cdef struct arg:
     pass
   cdef function[T] bind[T](T, arg)
+
+
+
+cdef extern from "boost/thread.hpp" namespace "boost" nogil:
+  cdef cppclass thread[F]:
+    thread()
+    thread(F)
+    void join()
+
+  cdef cppclass mutex:
+    mutex()
+    void lock()
+    libcpp.bool try_lock()
+    void unlock()
