@@ -12,7 +12,7 @@ _pcl_ext = Extension("_pcl",
                                    "/Users/bu2/.brew/include/eigen3",
                                    "../../OpenNI-MacOSX-x64-2.2/Include/",
                                    numpy.get_include()],
-                     libraries=["pcl_common", "pcl_io"],
+                     libraries=["pcl_common", "pcl_io", "pcl_features"],
                      library_dirs=["../../lib"],
                      language="c++")
 ext_modules.append(_pcl_ext)

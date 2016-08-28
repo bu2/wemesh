@@ -77,3 +77,23 @@ cdef class PointCloud:
 
   def savePCDFile(self, cpp.string filename):
     return cpp.savePCDFile(filename, self._thisptr.get()[0])
+
+  def estimate_normals(self, double radius):
+    cdef cpp.NormalEstimation[cpp.PointXYZ, cpp.Normal] normal_estimation = cpp.NormalEstimation[cpp.PointXYZ, cpp.Normal]()
+    cdef cpp.KdTreePtr tree = cpp.KdTreePtr(new cpp.KdTree[cpp.PointXYZ]())
+    cdef NormalCloud normals = NormalCloud()
+    normal_estimation.setInputCloud(self._thisptr)
+    normal_estimation.setSearchMethod(tree)
+    normal_estimation.setRadiusSearch(radius)
+    normal_estimation.compute(normals.thisptr().get()[0])
+    return normals
+
+
+
+cdef class NormalCloud:
+
+  def __cinit__(self):
+    self._thisptr = cpp.NormalCloudPtr(new cpp.PointCloud[cpp.Normal]())
+
+  def __dealloc__(self):
+    pass

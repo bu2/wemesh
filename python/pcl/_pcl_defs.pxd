@@ -14,6 +14,12 @@ cdef extern from "pcl/point_types.h" namespace "pcl" nogil:
     float y
     float z
 
+  struct Normal:
+    float normal_x
+    float normal_y
+    float normal_z
+    float curvature
+
 
 
 cdef extern from "pcl/point_cloud.h" namespace "pcl" nogil:
@@ -31,6 +37,26 @@ cdef extern from "pcl/point_cloud.h" namespace "pcl" nogil:
 ctypedef boost.shared_ptr[PointCloud[PointXYZ]] PointCloudPtr
 ctypedef boost.shared_ptr[PointCloud[PointXYZ]] PointCloudConstPtr
 ctypedef boost.shared_ptr[PointCloud[PointXYZ]] PointCloudConstPtrRef
+
+ctypedef boost.shared_ptr[PointCloud[Normal]] NormalCloudPtr
+
+
+
+cdef extern from "pcl/search/kdtree.h" namespace "pcl::search":
+  cdef cppclass KdTree[PointT]:
+    KdTree()
+
+ctypedef boost.shared_ptr[KdTree[PointXYZ]] KdTreePtr
+
+
+
+cdef extern from "pcl/features/normal_3d.h" namespace "pcl" nogil:
+  cdef cppclass NormalEstimation[PointT, NormalT]:
+    NormalEstimation()
+    void setInputCloud(PointCloudPtr)
+    void setSearchMethod(KdTreePtr)
+    void setRadiusSearch(double)
+    void compute(PointCloud[NormalT])
 
 
 

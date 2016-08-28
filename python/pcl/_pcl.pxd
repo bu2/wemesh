@@ -14,3 +14,12 @@ cdef class PointCloud:
 
   cdef Py_ssize_t shape[3]
   cdef Py_ssize_t strides[3]
+
+
+
+cdef class NormalCloud:
+
+  cdef cpp.NormalCloudPtr _thisptr
+
+  cdef inline cpp.NormalCloudPtr thisptr(self) nogil:
+    return self._thisptr
