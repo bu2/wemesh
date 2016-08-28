@@ -2,7 +2,7 @@
 
 ROOT=$PWD
 
-QT5ROOT=$HOME/lab/qt-5.7/5.7/clang_64
+QT5ROOT=$HOME/lab/qt-5.6/5.6/clang_64
 
 JOBS=4
 
