@@ -23,3 +23,6 @@ cdef class NormalCloud:
 
   cdef inline cpp.NormalCloudPtr thisptr(self) nogil:
     return self._thisptr
+
+  cdef Py_ssize_t shape[3]
+  cdef Py_ssize_t strides[3]

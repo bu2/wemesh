@@ -2,14 +2,15 @@
 
 ROOT=$PWD
 
-QT5ROOT=$HOME/lab/qt-5.6/5.6/clang_64
+# QT5ROOT=$HOME/lab/qt-5.6/5.6/clang_64
 
 JOBS=4
 
 cd paraview
 mkdir -p build
 cd build
-cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$ROOT -DMACOSX_APP_INSTALL_PREFIX=$ROOT -DPARAVIEW_QT_VERSION=5 -DQt5_DIR=$QT5ROOT/lib/cmake/Qt5/ -DQt5Core_DIR=$QT5ROOT/lib/cmake/Qt5Core/ -DPARAVIEW_ENABLE_PYTHON=ON .. 2>&1 | tee cmake.log
+# cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$ROOT -DMACOSX_APP_INSTALL_PREFIX=$ROOT -DPARAVIEW_QT_VERSION=5 -DQt5_DIR=$QT5ROOT/lib/cmake/Qt5/ -DQt5Core_DIR=$QT5ROOT/lib/cmake/Qt5Core/ -DPARAVIEW_ENABLE_PYTHON=ON .. 2>&1 | tee cmake.log
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$ROOT -DMACOSX_APP_INSTALL_PREFIX=$ROOT -DPARAVIEW_ENABLE_PYTHON=ON .. 2>&1 | tee cmake.log
 make -j$JOBS 2>&1 | tee make.log
 make install 2>&1 | tee make_install.log
 cd ../..
@@ -28,6 +29,7 @@ ipython setup.py -- build_ext --inplace 2>&1 | tee build_ext.log
 
 # UGLY FIX: hack code to handle cases that Cython can't...
 sed -i.old 's/const std::vector<struct pcl::PointXYZ>/const std::vector<struct pcl::PointXYZ, Eigen::aligned_allocator<struct pcl::PointXYZ> >/' _pcl.cpp
+sed -i.old 's/const std::vector<struct pcl::Normal>/const std::vector<struct pcl::Normal, Eigen::aligned_allocator<struct pcl::Normal> >/' _pcl.cpp
 ipython setup.py -- build_ext --inplace 2>&1 | tee build_ext.log
 sed -i.old 's/boost::arg/boost::arg<1>/' io/_io.cpp
 sed -i.old 's/boost::bind<__pyx_t_9_pcl_defs_OpenNI2GrabberCallback>/boost::bind/' io/_io.cpp
