@@ -55,6 +55,7 @@ cdef extern from "pcl/features/normal_3d.h" namespace "pcl" nogil:
     NormalEstimation()
     void setInputCloud(PointCloudPtr)
     void setSearchMethod(KdTreePtr)
+    void setSearchSurface(PointCloudPtr)
     void setRadiusSearch(double)
     void compute(PointCloud[NormalT])
 

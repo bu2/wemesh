@@ -78,12 +78,14 @@ cdef class PointCloud:
   def savePCDFile(self, cpp.string filename):
     return cpp.savePCDFile(filename, self._thisptr.get()[0])
 
-  def estimate_normals(self, double radius):
+  def estimate_normals(self, double radius, PointCloud surface=None):
     cdef cpp.NormalEstimation[cpp.PointXYZ, cpp.Normal] normal_estimation = cpp.NormalEstimation[cpp.PointXYZ, cpp.Normal]()
     cdef cpp.KdTreePtr tree = cpp.KdTreePtr(new cpp.KdTree[cpp.PointXYZ]())
     cdef NormalCloud normals = NormalCloud()
     normal_estimation.setInputCloud(self._thisptr)
     normal_estimation.setSearchMethod(tree)
+    if surface:
+      normal_estimation.setSearchSurface(surface.thisptr())
     normal_estimation.setRadiusSearch(radius)
     normal_estimation.compute(normals.thisptr().get()[0])
     return normals
