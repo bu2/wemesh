@@ -20,6 +20,7 @@ python/pcl/io/_io.so
 python/pcl/filters/_filters.cpp
 python/pcl/filters/_filters.so
 
+.idea/
 *.pyc
 *.log
 *~
