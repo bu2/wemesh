@@ -8,9 +8,11 @@ cimport numpy as np
 
 cdef class PointCloud:
 
-  def __cinit__(self, int width=-1, int height=-1):
+  def __cinit__(self, int width=-1, int height=-1, np.ndarray[float, ndim=2] arr = None):
     if width < 0:
       self._thisptr = cpp.PointCloudPtr(new cpp.PointCloud[cpp.PointXYZ]())
+    elif arr:
+      pass
     else:
       self._thisptr = cpp.PointCloudPtr(new cpp.PointCloud[cpp.PointXYZ](width, height))
 
